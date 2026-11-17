@@ -1,0 +1,105 @@
+:root {
+  --glass: #E6EEE9;
+  --ink: #1B2A23;
+  --ink2: #55665D;
+  --leaf: #3B8A4C;
+  --soil: #7B5A3D;
+  --water: #2B7BB5;
+  --line: #C9D6CE;
+  --earth: #D9CBB9;
+  --wet: #4F6E5A;
+  --wet-top: #6E8F7A;
+  --tray: #D5E0D9;
+  --card: #fff;
+  --err: #A4442E;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass: #111A15;
+    --ink: #E2EBE5;
+    --ink2: #98A99F;
+    --leaf: #5DB06E;
+    --soil: #A98463;
+    --line: #2B3A31;
+    --earth: #3A2F25;
+    --wet: #3F5E4A;
+    --wet-top: #5F8169;
+    --tray: #1B2620;
+    --card: #2A3830;
+    --err: #E58B73;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--glass);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: .5; }
+
+:focus-visible { outline: 2px solid var(--water); outline-offset: 2px; }
+
+h2 { margin: 22px 0 6px; font-size: 14px; }
+
+/* Hairline row: label left, value/control right. */
+.ctl {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  min-height: 46px; padding: 8px 0; font-size: 14px;
+  border-top: 1px solid var(--line);
+}
+.ctl b { font-variant-numeric: tabular-nums; }
+
+/* Switch: the whole row is the <button role="switch">. */
+button.ctl { width: 100%; background: none; border-left: 0; border-right: 0; border-bottom: 0; text-align: left; }
+.sw { flex: none; width: 42px; height: 24px; border-radius: 12px; background: var(--line); position: relative; transition: background .2s; }
+.sw::after {
+  content: ""; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px;
+  border-radius: 50%; background: #fff; transition: transform .2s;
+}
+[aria-checked="true"] .sw { background: var(--leaf); }
+[aria-checked="true"] .sw::after { transform: translateX(18px); }
+
+/* Quiet text button (Edit, Remove, Restart, steppers). */
+.link {
+  background: none; border: 0; padding: 8px 4px; margin: -8px -4px;
+  font-weight: 700; font-size: 14px; color: var(--ink2); border-radius: 8px;
+}
+
+.err { margin: 6px 0 0; font-size: 13px; color: var(--err); }
+.note { margin: 6px 0 0; font-size: 13px; color: var(--ink2); }
+
+.primary {
+  width: 100%; border: 0; border-radius: 14px; padding: 14px;
+  font-weight: 700; font-size: 16px; color: #fff; background: var(--water);
+}
+
+dialog {
+  width: calc(100% - 32px); max-width: 380px; padding: 0;
+  border: 0; border-radius: 20px; color: var(--ink); background: var(--glass);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+}
+/* Padding lives on .dlg so a tap on the dialog's own edge never counts as the backdrop. */
+.dlg { padding: 20px; }
+dialog::backdrop { background: rgba(17, 26, 21, .45); }
+dialog h3 { margin: 0 0 6px; font-size: 18px; }
+dialog p { margin: 0; font-size: 14px; color: var(--ink2); }
+.actions { display: flex; gap: 10px; margin-top: 18px; }
+.actions button { flex: 1; border: 0; border-radius: 12px; padding: 12px; font-weight: 700; }
+.actions .cancel { background: var(--tray); }
+.actions .go { color: #fff; background: var(--water); }
+.actions .danger { color: #fff; background: #7B5A3D; } /* fixed light-mode soil: 6:1 with white in both schemes */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

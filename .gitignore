@@ -1,0 +1,13 @@
+build
+.superpowers/
+.DS_Store
+.claude/
+.agent/
+docs/superpowers/
+docs/format/
+docs/report/build_report.py
+compile_flags.txt
+.clangd
+sdkconfig.old
+sdkconfig.bak
+web/.vite/
